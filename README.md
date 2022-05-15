@@ -1,3 +1,3 @@
 # ABot-Non-Live'
 
-Non Live ClickBot
+Non Live click bot
