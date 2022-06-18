@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Lib\imgui-docking\imconfig.h" />
+    <ClInclude Include="Lib\imgui-docking\imgui_internal.h" />
+    <ClInclude Include="Lib\imgui-docking\imstb_rectpack.h" />
+    <ClInclude Include="Lib\imgui-docking\imstb_textedit.h" />
+    <ClInclude Include="Lib\imgui-docking\imstb_truetype.h" />
+    <ClInclude Include="Lib\imgui-docking\backends\imgui_impl_opengl3.h">
+      <Filter>OpenGl3</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\imgui-docking\backends\imgui_impl_opengl3_loader.h">
+      <Filter>OpenGl3</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\imgui-docking\backends\imgui_impl_glfw.h">
+      <Filter>OpenGl3</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\imgui-docking\misc\cpp\imgui_stdlib.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Lib\imgui-docking\imgui.cpp" />
+    <ClCompile Include="Lib\imgui-docking\imgui_demo.cpp" />
+    <ClCompile Include="Lib\imgui-docking\imgui_draw.cpp" />
+    <ClCompile Include="Lib\imgui-docking\imgui_tables.cpp" />
+    <ClCompile Include="Lib\imgui-docking\imgui_widgets.cpp" />
+    <ClCompile Include="Lib\imgui-docking\backends\imgui_impl_opengl3.cpp">
+      <Filter>OpenGl3</Filter>
+    </ClCompile>
+    <ClCompile Include="Lib\imgui-docking\backends\imgui_impl_glfw.cpp">
+      <Filter>OpenGl3</Filter>
+    </ClCompile>
+    <ClCompile Include="Lib\imgui-docking\misc\cpp\imgui_stdlib.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="OpenGl3">
+      <UniqueIdentifier>{0e9fe4b7-4d6c-447b-9356-3f42db734f52}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
