@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ABot Non Live", "ABot Non Live\ABot Non Live.vcxproj", "{641E7F6F-2E62-4DB7-83AD-7C151EEC2280}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{789094F2-89B6-4050-910B-9AA85F93D268}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "ImGui\ImGui.vcxproj", "{D7431B5C-A4D7-42EE-B089-0C4C320F6D98}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioEngine", "AudioEngine\AudioEngine.vcxproj", "{50376B53-73F4-468E-9784-3481DF2F1AFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{641E7F6F-2E62-4DB7-83AD-7C151EEC2280}.Debug|x64.ActiveCfg = Debug|x64
+		{641E7F6F-2E62-4DB7-83AD-7C151EEC2280}.Debug|x64.Build.0 = Debug|x64
+		{641E7F6F-2E62-4DB7-83AD-7C151EEC2280}.Release|x64.ActiveCfg = Release|x64
+		{641E7F6F-2E62-4DB7-83AD-7C151EEC2280}.Release|x64.Build.0 = Release|x64
+		{D7431B5C-A4D7-42EE-B089-0C4C320F6D98}.Debug|x64.ActiveCfg = Debug|x64
+		{D7431B5C-A4D7-42EE-B089-0C4C320F6D98}.Debug|x64.Build.0 = Debug|x64
+		{D7431B5C-A4D7-42EE-B089-0C4C320F6D98}.Release|x64.ActiveCfg = Release|x64
+		{D7431B5C-A4D7-42EE-B089-0C4C320F6D98}.Release|x64.Build.0 = Release|x64
+		{50376B53-73F4-468E-9784-3481DF2F1AFC}.Debug|x64.ActiveCfg = Debug|x64
+		{50376B53-73F4-468E-9784-3481DF2F1AFC}.Debug|x64.Build.0 = Debug|x64
+		{50376B53-73F4-468E-9784-3481DF2F1AFC}.Release|x64.ActiveCfg = Release|x64
+		{50376B53-73F4-468E-9784-3481DF2F1AFC}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D7431B5C-A4D7-42EE-B089-0C4C320F6D98} = {789094F2-89B6-4050-910B-9AA85F93D268}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0880610A-D454-4D3E-AF08-C68B77317E33}
+	EndGlobalSection
+EndGlobal
