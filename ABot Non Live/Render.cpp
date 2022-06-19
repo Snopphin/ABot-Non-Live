@@ -12,7 +12,7 @@ Render::Render(fast_vector<FrameAction>& Actions, float Fps, std::string ClickPa
 	m_Output.Export("Output.wav");
 }
 
-void Render::OnAction(FrameAction& Action, float Fps, const std::string& ClickPack, float Volume)
+void Render::OnAction(FrameAction Action, float Fps, const std::string& ClickPack, float Volume)
 {
 	const float Time = Action.Frame / Fps;
 
