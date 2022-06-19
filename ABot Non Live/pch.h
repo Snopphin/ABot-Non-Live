@@ -1,0 +1,23 @@
+#pragma once
+
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
+#include <imgui_stdlib.h>
+#include <glfw3.h>
+#include <AudioEngine.h>
+#include <document.h>
+#include <istreamwrapper.h>
+#include <filesystem>
+#include <wtypes.h>
+#include "Font.h"
+#include "Action.h"
+#include "TASBOT.h"
+#include "RBot.h"
+#include "Utils.h"
+#include "FileSystem.h"
+#include "Random.h"
+#include "ABot.h"
+#include "Window.h"
+#include "GuiLayer.h"
+#include "AudioRender.h"
