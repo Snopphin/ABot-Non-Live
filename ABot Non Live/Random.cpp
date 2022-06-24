@@ -5,10 +5,10 @@ namespace Random
 {
 	int IntRandom(int Begin, int End)
 	{
-		std::uniform_int_distribution<int> Output(Begin, End);
-		std::random_device Seed;
-		std::mt19937 RandomEngine(Seed());
+		std::random_device RandomDevice;
+		std::mt19937 RandomEngine(RandomDevice());
+		std::uniform_int_distribution UniformDistribution(Begin, End);
 
-		return Output(RandomEngine);
+		return UniformDistribution(RandomEngine);
 	}
 }

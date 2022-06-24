@@ -65,7 +65,7 @@ void GuiLayer::RenderFrame()
 
 void GuiLayer::RenderGui()
 {
-    static float s_Volume = 0.1f;
+    static float s_Volume = 0.0f;
     static std::string s_ReplayPath;
     static std::string s_ClickPath;
 
@@ -80,11 +80,11 @@ void GuiLayer::RenderGui()
 
         if (ImGui::Button("Render"))
         {
-            std::ifstream Macro (s_ReplayPath);
-
             if (s_ReplayPath.contains(".json"))
             {
-                TASBOT Replay(Macro);
+                std::ifstream Macro (s_ReplayPath);
+
+                const TASBOT Replay(Macro);
 
                 AudioRender RenderLoop;
                 RenderLoop.Process(Replay.Actions, s_Volume, Replay.Fps, s_ClickPath);
@@ -92,7 +92,9 @@ void GuiLayer::RenderGui()
 
             if (s_ReplayPath.contains(".rbot"))
             {
-                RBot Replay(Macro);
+                std::ifstream Macro (s_ReplayPath, std::ios::binary);
+
+                const RBot Replay(Macro);
 
                 AudioRender RenderLoop;
                 RenderLoop.Process(Replay.Actions, s_Volume, Replay.Fps, s_ClickPath);

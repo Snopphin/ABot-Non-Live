@@ -7,7 +7,7 @@ namespace FileSystem
 		auto dirIter = std::filesystem::directory_iterator(Path);
 
 		size_t fileCount = 0;
-		for (auto& entry : dirIter)
+		for (const auto& entry : dirIter)
 		{
 			if (entry.is_regular_file())
 			{
