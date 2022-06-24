@@ -46,10 +46,7 @@ void AudioEngine::NormalizeVolume(float AdjustVolume)
 
 void AudioEngine::SetVolume(float Volume)
 {
-	for (auto& Sample : m_AudioSamples)
-	{
-		Sample *= Volume;
-	}
+	m_AudioSamples.multiply(Volume);
 }
 
 constexpr int16_t AudioEngine::GetHighestSample()
