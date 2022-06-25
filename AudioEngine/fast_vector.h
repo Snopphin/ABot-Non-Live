@@ -406,13 +406,16 @@ void fast_vector<T>::add(size_type index, const fast_vector& other)
 {
     for (size_type i = 0; i != other.m_size; i++)
     {
-        if (fabs(m_data[i + index] * other.m_data[i]) > 0.25f)
+        float AudiodB = (other.m_data[i] - 32768) / 32768.f;
+        float dB = (m_data[i + index] - 32768) / 32768.f;
+
+        if (fabs(AudiodB * dB) > 0.25f)
         {
             m_data[i + index] += other.m_data[i];
         }
         else
         {
-            m_data[i + index] = fabs(m_data[i + index]) < fabs(other.m_data[i]) ? other.m_data[i] : m_data[i + index];
+            m_data[i + index] = fabs(AudiodB) < fabs(dB) ? other.m_data[i] : m_data[i + index];
         }
     }
 }
