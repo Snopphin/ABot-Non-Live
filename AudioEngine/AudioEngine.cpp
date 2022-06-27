@@ -24,6 +24,7 @@ void AudioEngine::Export(std::string_view Output)
 	std::ofstream OutputFile(Output.data(), std::ios::binary | std::ios::out);
 
 	m_LastWavHeader.LenghtInBytes = To16Bytes(m_TotalSamples.lenght());
+	m_LastWavHeader.sampleRate = 44100;
 
 	OutputFile.write((Binary)&m_LastWavHeader, sizeof(WavHeader));
 	OutputFile.write((Binary)m_TotalSamples.data(), m_LastWavHeader.LenghtInBytes);
