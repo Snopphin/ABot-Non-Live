@@ -2,19 +2,17 @@
 #include <fstream>
 #include "fast_vector.h"
 #include "WavHeader.h"
-#define Silence 0
 
 class AudioEngine //Currently only supports 16bit pcm 44100 sample rate wav files
 {
 	typedef char* Binary;
 public:
-	void Overlay(std::string_view AudioFile, float Time = 0, float AdjustVolume = 0.1);
+	void Overlay(std::string_view AudioFile, float Time = 0, float Pitch = 1, float AdjustVolume = 0.0);
 	void CreateSilence(float Lenght);
 	void Export(std::string_view Output);
 private:
 	void Parse(std::string_view AudioFile);
 	void NormalizeVolume(float AdjustVolume);
-	void SetVolume(float Volume);
 
 	constexpr int16_t GetHighestSample();
 

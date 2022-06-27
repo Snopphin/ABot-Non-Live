@@ -1,12 +1,17 @@
 #include "AudioEngine.h"
+#include "Resampler.h"
 #define GetHighestElement(Vector) *std::max_element(Vector.begin(), Vector.end())
+#define Silence 0
 
-void AudioEngine::Overlay(std::string_view AudioFile, float Time, float AdjustVolume)
+void AudioEngine::Overlay(std::string_view AudioFile, float Time, float Pitch, float AdjustVolume)
 {
 	this->Parse(AudioFile);
 	this->NormalizeVolume(AdjustVolume);
 
-	m_TotalSamples.add(ToSamples(Time), m_AudioSamples);
+	fast_vector<int16_t> PitchedSamples;
+	Resample(m_AudioSamples, PitchedSamples, Pitch);
+
+	m_TotalSamples.add(ToSamples(Time), PitchedSamples);
 }
 
 void AudioEngine::CreateSilence(float Length)
@@ -41,12 +46,7 @@ void AudioEngine::Parse(std::string_view AudioFile)
 void AudioEngine::NormalizeVolume(float AdjustVolume)
 {
 	float PeakLoudness = ToDecibels(this->GetHighestSample());
-	this->SetVolume(AdjustVolume - PeakLoudness);
-}
-
-void AudioEngine::SetVolume(float Volume)
-{
-	m_AudioSamples.multiply(Volume);
+	m_AudioSamples.multiply(AdjustVolume - PeakLoudness);
 }
 
 constexpr int16_t AudioEngine::GetHighestSample()
@@ -56,7 +56,7 @@ constexpr int16_t AudioEngine::GetHighestSample()
 
 float AudioEngine::ToDecibels(int16_t Sample)
 {
-	return log10(Sample / (float)INT16_MAX);
+	return log10(Sample / float(INT16_MAX));
 }
 
 size_t AudioEngine::ToSamples(float Time)

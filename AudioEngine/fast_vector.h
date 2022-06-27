@@ -82,7 +82,7 @@ public:
     bool empty() const noexcept;
     size_type size() const noexcept;
     size_type lenght() const noexcept;
-    void reserve(size_type new_cap);
+    void allocate(size_type new_cap);
     size_type capacity() const noexcept;
     void shrink_to_fit();
 
@@ -284,7 +284,7 @@ typename fast_vector<T>::size_type fast_vector<T>::lenght() const noexcept
 }
 
 template <class T>
-void fast_vector<T>::reserve(size_type new_cap)
+void fast_vector<T>::allocate(size_type new_cap)
 {
     assert(new_cap > m_capacity && "Capacity is already equal to or greater than the passed value");
 
@@ -367,7 +367,7 @@ void fast_vector<T>::push_back(const T& value)
 {
     if (m_size == m_capacity)
     {
-        reserve(m_capacity * fast_vector::grow_factor + 1);
+        allocate(m_capacity * fast_vector::grow_factor + 1);
     }
 
     if constexpr (std::is_trivial_v<T>)
@@ -387,7 +387,7 @@ void fast_vector<T>::push_back(T&& value)
 {
     if (m_size == m_capacity)
     {
-        reserve(m_capacity * fast_vector::grow_factor + 1);
+        allocate(m_capacity * fast_vector::grow_factor + 1);
     }
 
     if constexpr (std::is_trivial_v<T>)
@@ -428,7 +428,7 @@ void fast_vector<T>::emplace_back(Args&&... args)
 
     if (m_size == m_capacity)
     {
-        reserve(m_capacity * fast_vector::grow_factor + 1);
+        allocate(m_capacity * fast_vector::grow_factor + 1);
     }
 
     new (m_data + m_size) T(std::forward<Args>(args)...);
@@ -452,11 +452,9 @@ void fast_vector<T>::pop_back()
 template <class T>
 void fast_vector<T>::resize(size_type count)
 {
-    assert(count == m_size && "Size is already equal to the passed value");
-
     if (count > m_capacity)
     {
-        reserve(count);
+        allocate(count);
     }
 
     if constexpr (!std::is_trivial_v<T>)
