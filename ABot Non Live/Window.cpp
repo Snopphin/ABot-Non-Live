@@ -11,7 +11,7 @@ void Window::NewFrame()
 	glfwPollEvents();
 }
 
-void Window::Render()
+void Window::Display()
 {
 	glfwSwapBuffers(m_Window);
 }

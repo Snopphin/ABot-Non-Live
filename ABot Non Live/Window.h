@@ -8,7 +8,7 @@ public:
 	void Create(const char* Name, uint32_t Width, uint32_t Height);
 
 	static void NewFrame();
-	void Render();
+	void Display();
 	void Clear();
 
 	bool IsClosed() { return glfwWindowShouldClose(m_Window); }

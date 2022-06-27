@@ -14,7 +14,7 @@ void TASBOT::Parse(std::ifstream& Macro)
 	Fps = MacroFile["fps"].GetFloat();
 
 	size_t TotalActions = MacroFile["macro"].Size();
-	Actions.reserve(TotalActions * 2);
+	Actions.allocate(TotalActions * 2);
 
 	for (const auto& Action : MacroFile["macro"].GetArray())
 	{

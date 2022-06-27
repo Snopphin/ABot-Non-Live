@@ -27,7 +27,7 @@ namespace ABot
 		if (!Action.IsHolding)
 			PreviousFrame = Action.Frame;
 
-		switch (CurrentClickType)
+		switch (CurrentClickType) 
 		{
 		case ClickType::HardClick:
 			if (Action.IsHolding)

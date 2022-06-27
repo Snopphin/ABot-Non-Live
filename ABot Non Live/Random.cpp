@@ -11,4 +11,13 @@ namespace Random
 
 		return UniformDistribution(RandomEngine);
 	}
+
+	float FloatRandom(float Begin, float End)
+	{
+		std::random_device RandomDevice;
+		std::mt19937 RandomEngine(RandomDevice());
+		std::uniform_real_distribution UniformDistribution(Begin, End);
+
+		return UniformDistribution(RandomEngine);
+	}
 }

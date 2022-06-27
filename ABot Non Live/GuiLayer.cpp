@@ -1,4 +1,5 @@
 #include "pch.h"
+#include <future>
 
 GuiLayer::GuiLayer()
 {
@@ -44,6 +45,7 @@ void GuiLayer::NewFrame()
 void GuiLayer::RenderFrame()
 {
     ImGui::Render();
+
     int display_w, display_h;
     glfwGetFramebufferSize(m_Window, &display_w, &display_h);
     glViewport(0, 0, display_w, display_h);
@@ -60,12 +62,12 @@ void GuiLayer::RenderFrame()
         glfwMakeContextCurrent(backup_current_context);
     }
 
-    m_Window.Render();
+    m_Window.Display();
 }
 
 void GuiLayer::RenderGui()
 {
-    static float s_Volume = 0.0f;
+    static float s_Volume = 0.f;
     static std::string s_ReplayPath;
     static std::string s_ClickPath;
 
@@ -82,7 +84,7 @@ void GuiLayer::RenderGui()
         {
             if (s_ReplayPath.contains(".json"))
             {
-                std::ifstream Macro (s_ReplayPath);
+                std::ifstream Macro(s_ReplayPath);
 
                 const TASBOT Replay(Macro);
 
@@ -92,7 +94,7 @@ void GuiLayer::RenderGui()
 
             if (s_ReplayPath.contains(".rbot"))
             {
-                std::ifstream Macro (s_ReplayPath, std::ios::binary);
+                std::ifstream Macro(s_ReplayPath, std::ios::binary);
 
                 const RBot Replay(Macro);
 
