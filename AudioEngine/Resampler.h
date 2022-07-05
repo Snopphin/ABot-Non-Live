@@ -13,20 +13,20 @@
  // Resample(BIG, 1024, SMALL, 128);
 
 #include "fast_vector.h"
-#define M_PI 3.14159265358979323846
+#include "fast_math.h"
 
 constexpr int FilterRadius = 3;
 
-static float Lanczos(float x)
+static float Lanczos(int Radius, float x)
 {
     if (x == 0.0) 
         return 1.0f;
 
-    if (x < -FilterRadius || x > FilterRadius)
+    if (x < -Radius || x > Radius)
         return 0.0f;
 
     float pi_x = x * M_PI;
-    return FilterRadius * sin(pi_x) * sin(pi_x / FilterRadius) / (pi_x * pi_x);
+    return Radius * fast_math::sine(pi_x) * fast_math::sine(pi_x / Radius) / (pi_x * pi_x);
 }
 
 static void Resample(fast_vector<int16_t>& Input, fast_vector<int16_t>& Output, float Speed)
@@ -51,7 +51,7 @@ static void Resample(fast_vector<int16_t>& Input, fast_vector<int16_t>& Output, 
         Output[Frame] = 0;
         for (size_t x = 0; x != Stop - Start; x++, s++)
         {
-            float Contribution = Lanczos(s * Scale);
+            float Contribution = Lanczos(FilterRadius, s * Scale);
             Density += Contribution;
 
             Output[Frame] += Input[Start + x] * Contribution;

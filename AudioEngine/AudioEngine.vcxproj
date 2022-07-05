@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioEngine.h" />
+    <ClInclude Include="fast_math.h" />
     <ClInclude Include="Resampler.h" />
     <ClInclude Include="WavHeader.h" />
   </ItemGroup>
