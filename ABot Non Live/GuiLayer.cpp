@@ -2,7 +2,7 @@
 
 GuiLayer::GuiLayer()
 {
-    m_Window.Create("ABot 1.2", 1280, 720);
+    m_Window.Create("ABot 1.3", 1280, 720);
 	glfwSwapInterval(true); 
 
     IMGUI_CHECKVERSION();
