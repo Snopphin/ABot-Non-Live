@@ -12,8 +12,6 @@ public:
 	void Export(std::string_view Output);
 private:
 	void Parse(std::string_view AudioFile);
-
-	void SetPitch(float Pitch);
 	void NormalizeVolume(float AdjustVolume);
 
 	constexpr int16_t GetHighestSample();

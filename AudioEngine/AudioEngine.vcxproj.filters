@@ -4,9 +4,6 @@
     <Filter Include="AudioEngine">
       <UniqueIdentifier>{fdaf2b0d-2e26-43b9-87e8-b0902b27eabe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AudioEngine\Resampler">
-      <UniqueIdentifier>{c545a572-cd3f-4b4a-be98-670f50df3169}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioEngine.cpp">
@@ -21,10 +18,7 @@
       <Filter>AudioEngine</Filter>
     </ClInclude>
     <ClInclude Include="Resampler.h">
-      <Filter>AudioEngine\Resampler</Filter>
-    </ClInclude>
-    <ClInclude Include="fast_math.h">
-      <Filter>AudioEngine\Resampler</Filter>
+      <Filter>AudioEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,9 +7,11 @@ void AudioEngine::Overlay(std::string_view AudioFile, float Time, float Pitch, f
 {
 	this->Parse(AudioFile);
 	this->NormalizeVolume(AdjustVolume);
-	this->SetPitch(Pitch);
 
-	m_TotalSamples.add(ToSamples(Time), m_AudioSamples);
+	fast_vector<int16_t> PitchedSamples;
+	Resample(m_AudioSamples, PitchedSamples, Pitch);
+
+	m_TotalSamples.add(ToSamples(Time), PitchedSamples);
 }
 
 void AudioEngine::CreateSilence(float Length)
@@ -40,14 +42,6 @@ void AudioEngine::Parse(std::string_view AudioFile)
 	InputFile.read((Binary)m_AudioSamples.data(), m_LastWavHeader.LenghtInBytes);
 
 	InputFile.close();
-}
-
-void AudioEngine::SetPitch(float Pitch)
-{
-	fast_vector<int16_t> PitchedSamples;
-	Resample(m_AudioSamples, PitchedSamples, Pitch);
-
-	m_AudioSamples = std::move(PitchedSamples);
 }
 
 void AudioEngine::NormalizeVolume(float AdjustVolume)

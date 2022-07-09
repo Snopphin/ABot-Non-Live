@@ -56,7 +56,7 @@ public:
     ~fast_vector();
 
     // Element access
-
+    
     T& operator[](size_type pos);
     const T& operator[](size_type pos) const;
 
@@ -94,12 +94,14 @@ public:
 
     void push_back(const T& value);
     void push_back(T&& value);
+
     void add(size_type index, const fast_vector& other);
 
     template< class... Args >
     void emplace_back(Args&&... args);
 
     void pop_back();
+
     void resize(size_type count);
     void resize(size_type count, T value);
 
@@ -358,7 +360,7 @@ void fast_vector<T>::multiply(float value)
 {
     for (size_type i = 0; i != m_size; i++)
     {
-        m_data[i] *= value;
+        m_data[i] = std::clamp<int16_t>(m_data[i] * value, INT16_MIN, INT16_MAX);
     }
 }
 
@@ -411,11 +413,11 @@ void fast_vector<T>::add(size_type index, const fast_vector& other)
 
         if (fabs(AudiodB * dB) > 0.25f)
         {
-            m_data[i + index] += other.m_data[i];
+            m_data[i + index] = std::clamp<int64_t>(m_data[i + index] + other.m_data[i], INT16_MIN, INT16_MAX);
         }
         else
         {
-            m_data[i + index] = fabs(AudiodB) < fabs(dB) ? other.m_data[i] : m_data[i + index];
+            m_data[i + index] = fabs(AudiodB) < fabs(dB) ? std::clamp<int64_t>(other.m_data[i], INT16_MIN, INT16_MAX) : std::clamp<int64_t>(m_data[i + index], INT16_MIN, INT16_MAX);
         }
     }
 }
