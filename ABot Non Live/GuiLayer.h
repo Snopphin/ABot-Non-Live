@@ -10,7 +10,7 @@ private:
 	void NewFrame();
 	void RenderFrame();
 
-	void RenderGui();
+	void RenderImGui();
 	void SetupTheme();
 private:
 	Window m_Window;

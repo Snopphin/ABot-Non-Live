@@ -1,10 +1,9 @@
 #include "pch.h"
-#include <future>
 
 GuiLayer::GuiLayer()
 {
     m_Window.Create("ABot 1.2", 1280, 720);
-    glfwSwapInterval(true); 
+	glfwSwapInterval(true); 
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -15,7 +14,7 @@ GuiLayer::GuiLayer()
 
     m_ImGuiFont = io.Fonts->AddFontFromMemoryTTF(OpenSans_Font, 19, 19);
 
-    this->SetupTheme();
+    SetupTheme();
 
     ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
     ImGui_ImplOpenGL3_Init("#version 130");
@@ -27,7 +26,7 @@ void GuiLayer::RunLoop()
     {
         this->NewFrame();
 
-        this->RenderGui();
+        this->RenderImGui();
 
         this->RenderFrame();
     }
@@ -65,9 +64,9 @@ void GuiLayer::RenderFrame()
     m_Window.Display();
 }
 
-void GuiLayer::RenderGui()
+void GuiLayer::RenderImGui()
 {
-    static float s_Volume = 0.f;
+    static float s_Volume = 0.0f;
     static std::string s_ReplayPath;
     static std::string s_ClickPath;
 
@@ -82,24 +81,24 @@ void GuiLayer::RenderGui()
 
         if (ImGui::Button("Render"))
         {
-            if (s_ReplayPath.contains(".json"))
+            if (s_ReplayPath.ends_with(".json"))
             {
                 std::ifstream Macro(s_ReplayPath);
 
                 const TASBOT Replay(Macro);
 
                 AudioRender RenderLoop;
-                RenderLoop.Process(Replay.Actions, s_Volume, Replay.Fps, s_ClickPath);
+                RenderLoop.Process(Replay.Actions, Replay.Fps, s_Volume, s_ClickPath);
             }
 
-            if (s_ReplayPath.contains(".rbot"))
+            if (s_ReplayPath.ends_with(".rbot"))
             {
                 std::ifstream Macro(s_ReplayPath, std::ios::binary);
 
                 const RBot Replay(Macro);
 
                 AudioRender RenderLoop;
-                RenderLoop.Process(Replay.Actions, s_Volume, Replay.Fps, s_ClickPath);
+                RenderLoop.Process(Replay.Actions, Replay.Fps, s_Volume, s_ClickPath);
             }
         }
 
