@@ -7,16 +7,15 @@ class AudioEngine //Currently only supports 16bit pcm 44100 sample rate wav file
 {
 	typedef char* Binary;
 public:
-	void Overlay(std::string_view AudioFile, float Time = 0, float Pitch = 1, float AdjustVolume = 0.0);
+	void Overlay(std::string_view AudioFile, float Time = 0);
 	void CreateSilence(float Lenght);
-	void Export(std::string_view Output);
+	void Export(std::string_view Output, float Volume = 1);
 private:
 	void Parse(std::string_view AudioFile);
 	void NormalizeVolume(float AdjustVolume);
 
-	constexpr int16_t GetHighestSample();
+	float GetNormalizedVolume();
 
-	static float ToDecibels(int16_t Sample);
 	static size_t ToSamples(float Time);
 	static size_t To16Bytes(size_t Lenght);
 private:

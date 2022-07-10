@@ -1,17 +1,11 @@
 #include "AudioEngine.h"
-#include "Resampler.h"
 #define GetHighestElement(Vector) *std::max_element(Vector.begin(), Vector.end())
 #define Silence 0
 
-void AudioEngine::Overlay(std::string_view AudioFile, float Time, float Pitch, float AdjustVolume)
+void AudioEngine::Overlay(std::string_view AudioFile, float Time)
 {
 	this->Parse(AudioFile);
-	this->NormalizeVolume(AdjustVolume);
-
-	fast_vector<int16_t> PitchedSamples;
-	Resample(m_AudioSamples, PitchedSamples, Pitch);
-
-	m_TotalSamples.add(ToSamples(Time), PitchedSamples);
+	m_TotalSamples.add(ToSamples(Time), m_AudioSamples);
 }
 
 void AudioEngine::CreateSilence(float Length)
@@ -19,9 +13,11 @@ void AudioEngine::CreateSilence(float Length)
 	m_TotalSamples.resize(ToSamples(Length), Silence);
 }
 
-void AudioEngine::Export(std::string_view Output)
+void AudioEngine::Export(std::string_view Output, float Volume)
 {
 	std::ofstream OutputFile(Output.data(), std::ios::binary | std::ios::out);
+
+	NormalizeVolume(Volume);
 
 	m_LastWavHeader.LenghtInBytes = To16Bytes(m_TotalSamples.lenght());
 	m_LastWavHeader.sampleRate = 44100;
@@ -46,18 +42,23 @@ void AudioEngine::Parse(std::string_view AudioFile)
 
 void AudioEngine::NormalizeVolume(float AdjustVolume)
 {
-	float PeakLoudness = ToDecibels(this->GetHighestSample());
-	m_AudioSamples.multiply(AdjustVolume - PeakLoudness);
+	float NormalizedVolume = this->GetNormalizedVolume();
+	m_TotalSamples.multiply(AdjustVolume - NormalizedVolume);
 }
 
-constexpr int16_t AudioEngine::GetHighestSample()
+float AudioEngine::GetNormalizedVolume()
 {
-	return GetHighestElement(m_AudioSamples);
-}
+	float SumOfSamples = 0;
 
-float AudioEngine::ToDecibels(int16_t Sample)
-{
-	return log10(Sample / float(INT16_MAX));
+	for (auto& Sample : m_TotalSamples)
+	{
+		float NormalizedVolume = Sample / 32767.f;
+		SumOfSamples += std::sqrt(NormalizedVolume * NormalizedVolume);
+	}
+
+	float RMS = log10(SumOfSamples / m_TotalSamples.lenght());
+
+	return RMS;
 }
 
 size_t AudioEngine::ToSamples(float Time)

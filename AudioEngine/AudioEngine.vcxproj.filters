@@ -17,8 +17,5 @@
     <ClInclude Include="AudioEngine.h">
       <Filter>AudioEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Resampler.h">
-      <Filter>AudioEngine</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

@@ -360,7 +360,7 @@ void fast_vector<T>::multiply(float value)
 {
     for (size_type i = 0; i != m_size; i++)
     {
-        m_data[i] = std::clamp<int16_t>(m_data[i] * value, INT16_MIN, INT16_MAX);
+        m_data[i] = std::clamp<int64_t>(m_data[i] * value, INT16_MIN, INT16_MAX);
     }
 }
 
