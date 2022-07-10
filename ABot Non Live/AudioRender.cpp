@@ -6,19 +6,18 @@ void AudioRender::Process(const fast_vector<FrameAction>& Actions, float Fps, fl
 		
 	for (const auto& Action : Actions)
 	{
-		OnAction(Action, ClickPack, Volume, Fps);
+		OnAction(Action, ClickPack, Fps);
 	}
 
-	m_Output.Export("Output.wav");
+	m_Output.Export("Output.wav", Volume);
 }
 
-void AudioRender::OnAction(FrameAction Action, const std::string& ClickPack, float Volume, float Fps)
+void AudioRender::OnAction(FrameAction Action, const std::string& ClickPack, float Fps)
 {
 	float Time = Action.Frame / Fps;
-	float Pitch = pow(0.9f, Random::FloatRandom(-0.1f, 0.1f));
 	
 	std::string ClickPath = ABot::CreateClickType(ClickPack, Action, Fps);
 	int8_t RandomClick = Random::IntRandom(1, FileSystem::CountFiles(ClickPath));
 
-	m_Output.Overlay(ClickPath + std::to_string(RandomClick) + ".wav", Time, Pitch, Volume);
+	m_Output.Overlay(ClickPath + std::to_string(RandomClick) + ".wav", Time);
 }
