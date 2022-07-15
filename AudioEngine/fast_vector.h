@@ -111,7 +111,6 @@ private:
     T* m_data = nullptr;
     size_type m_size = 0;
     size_type m_capacity = 0;
-
 };
 
 template <class T>

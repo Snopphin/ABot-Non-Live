@@ -1,26 +1,25 @@
 #include "AudioEngine.h"
 #define GetHighestElement(Vector) *std::max_element(Vector.begin(), Vector.end())
-#define Silence 0
 
-void AudioEngine::Overlay(std::string_view AudioFile, float Time)
+void AudioEngine::Overlay(std::string_view AudioFile, float Time, float Volume)
 {
 	this->Parse(AudioFile);
+	this->NormalizeVolume(Volume);
+
 	m_TotalSamples.add(ToSamples(Time), m_AudioSamples);
 }
 
-void AudioEngine::CreateSilence(float Length)
+void AudioEngine::CreateSilence(float Time)
 {
-	m_TotalSamples.resize(ToSamples(Length), Silence);
+	m_TotalSamples.allocate(ToSamples(Time));
 }
 
-void AudioEngine::Export(std::string_view Output, float Volume)
+void AudioEngine::Export(std::string_view Output)
 {
 	std::ofstream OutputFile(Output.data(), std::ios::binary | std::ios::out);
 
-	NormalizeVolume(Volume);
-
-	m_LastWavHeader.LenghtInBytes = To16Bytes(m_TotalSamples.lenght());
-	m_LastWavHeader.sampleRate = 44100;
+	m_LastWavHeader.LenghtInBytes = m_TotalSamples.capacity() * sizeof(int16_t);
+	m_LastWavHeader.sampleRate = 44100; 
 
 	OutputFile.write((Binary)&m_LastWavHeader, sizeof(WavHeader));
 	OutputFile.write((Binary)m_TotalSamples.data(), m_LastWavHeader.LenghtInBytes);
@@ -43,30 +42,26 @@ void AudioEngine::Parse(std::string_view AudioFile)
 void AudioEngine::NormalizeVolume(float AdjustVolume)
 {
 	float NormalizedVolume = this->GetNormalizedVolume();
-	m_TotalSamples.multiply(AdjustVolume - NormalizedVolume);
+	m_AudioSamples.multiply(AdjustVolume - NormalizedVolume);
 }
 
 float AudioEngine::GetNormalizedVolume()
 {
 	float SumOfSamples = 0;
 
-	for (auto& Sample : m_TotalSamples)
+	for (const auto& Sample : m_AudioSamples)
 	{
-		float NormalizedVolume = Sample / 32767.f;
-		SumOfSamples += std::sqrt(NormalizedVolume * NormalizedVolume);
+		SumOfSamples += Sample * Sample;
 	}
 
-	float RMS = log10(SumOfSamples / m_TotalSamples.lenght());
+	float NormalizedSamples = SumOfSamples / (32767.f * 32767.f);
+
+	float RMS = log10(NormalizedSamples / m_AudioSamples.lenght());
 
 	return RMS;
 }
 
 size_t AudioEngine::ToSamples(float Time)
 {
-	return To16Bytes(44100 * Time);
-}
-
-size_t AudioEngine::To16Bytes(size_t Lenght)
-{
-	return Lenght * sizeof(int16_t);
+	return 44100 * Time * sizeof(int16_t);
 }
