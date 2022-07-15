@@ -2,7 +2,7 @@
 
 namespace ABot
 {
-	constexpr ClickType CheckClickType(const std::string& ClickPack, FrameAction Action, uint32_t PreviousFrame, float Fps)
+	ClickType CheckClickType(const std::string& ClickPack, FrameAction Action, uint32_t PreviousFrame, float Fps)
 	{
 		float CurrentTime = (Action.Frame - PreviousFrame) / Fps;
 
