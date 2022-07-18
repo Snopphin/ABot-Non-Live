@@ -46,12 +46,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(SolutionDir)ImGui\Lib\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)ImGui\Lib\imgui-docking;$(SolutionDir)ImGui\Lib\imgui-docking\backends;$(SolutionDir)ImGui\Lib\GLFW;$(SolutionDir)ImGui\Lib\imgui-docking\misc\cpp;$(SolutionDir)AudioEngine;$(SolutionDir)rapidjson\include\rapidjson;$(SolutionDir)AudioEngine\libfar\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ImGui\Lib\imgui-docking;$(SolutionDir)ImGui\Lib\imgui-docking\backends;$(SolutionDir)ImGui\Lib\GLFW;$(SolutionDir)ImGui\Lib\imgui-docking\misc\cpp;$(SolutionDir)AudioEngine;$(SolutionDir)rapidjson\include\rapidjson;$(SolutionDir)fast_io\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <LibraryPath>$(SolutionDir)ImGui\Lib\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)ImGui\Lib\imgui-docking;$(SolutionDir)ImGui\Lib\imgui-docking\backends;$(SolutionDir)ImGui\Lib\GLFW;$(SolutionDir)ImGui\Lib\imgui-docking\misc\cpp;$(SolutionDir)AudioEngine;$(SolutionDir)rapidjson\include\rapidjson;$(SolutionDir)AudioEngine\libfar\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ImGui\Lib\imgui-docking;$(SolutionDir)ImGui\Lib\imgui-docking\backends;$(SolutionDir)ImGui\Lib\GLFW;$(SolutionDir)ImGui\Lib\imgui-docking\misc\cpp;$(SolutionDir)AudioEngine;$(SolutionDir)rapidjson\include\rapidjson;$(SolutionDir)fast_io\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -133,6 +133,5 @@
     <ClInclude Include="TASBOT.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

@@ -7,5 +7,5 @@ namespace ABot
 		NormalClick = 0, SoftClick, HardClick
 	};
 
-	std::string CreateClickType(const std::string& ClickPack, FrameAction Action, float Fps);
+	std::string CreateClickType(FrameAction Action, const std::string& ClickPack, float Fps);
 }

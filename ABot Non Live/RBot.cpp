@@ -3,16 +3,16 @@
 
 RBot::RBot(std::ifstream& Macro)
 {
-	this->Parse(Macro);
+	Parse(Macro);
 }
 
 void RBot::Parse(std::ifstream& Macro)
 {
 	Actions.allocate(GetTotalBytes(Macro) / TotalActionsInBytes);
 
-	Fps = ReadBinary<int>(Macro);
+	Fps = ReadBinary<int32_t>(Macro);
 	Macro.ignore(sizeof(int));
-
+	
 	while (!Macro.fail())
 	{
 		uint32_t Frame = ReadBinary<uint32_t>(Macro);

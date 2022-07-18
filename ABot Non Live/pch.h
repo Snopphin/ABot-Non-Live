@@ -8,8 +8,10 @@
 #include <AudioEngine.h>
 #include <document.h>
 #include <istreamwrapper.h>
+#include <fstream>
 #include <filesystem>
 #include <wtypes.h>
+#include <fast_io_device.h>
 #include "Font.h"
 #include "Action.h"
 #include "TASBOT.h"

@@ -2,7 +2,7 @@
 
 GuiLayer::GuiLayer()
 {
-    m_Window.Create("ABot 1.5", 1280, 720);
+    m_Window.Create("ABot 1.6", 1280, 720);
 	glfwSwapInterval(true); 
 
     IMGUI_CHECKVERSION();
@@ -66,7 +66,6 @@ void GuiLayer::RenderFrame()
 
 void GuiLayer::RenderImGui()
 {
-    static float s_Volume = 0.0f;
     static std::string s_ReplayPath;
     static std::string s_ClickPath;
 
@@ -77,8 +76,6 @@ void GuiLayer::RenderImGui()
         ImGui::InputText("Replay Path", &s_ReplayPath);
         ImGui::InputText("Click Pack Path", &s_ClickPath);
 
-        ImGui::SliderFloat("Volume", &s_Volume, 0.0f, 2.0f);
-
         if (ImGui::Button("Render"))
         {
             if (s_ReplayPath.ends_with(".json"))
@@ -88,7 +85,7 @@ void GuiLayer::RenderImGui()
                 const TASBOT Replay(Macro);
 
                 AudioRender RenderLoop;
-                RenderLoop.Process(Replay.Actions, Replay.Fps, s_Volume, s_ClickPath);
+                RenderLoop.Process(Replay.Actions, Replay.Fps, s_ClickPath);
             }
 
             if (s_ReplayPath.ends_with(".rbot"))
@@ -98,7 +95,7 @@ void GuiLayer::RenderImGui()
                 const RBot Replay(Macro);
 
                 AudioRender RenderLoop;
-                RenderLoop.Process(Replay.Actions, Replay.Fps, s_Volume, s_ClickPath);
+                RenderLoop.Process(Replay.Actions, Replay.Fps, s_ClickPath);
             }
         }
 

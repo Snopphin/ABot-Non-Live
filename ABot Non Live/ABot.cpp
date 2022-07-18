@@ -2,7 +2,7 @@
 
 namespace ABot
 {
-	ClickType CheckClickType(const std::string& ClickPack, FrameAction Action, uint32_t PreviousFrame, float Fps)
+	ClickType CheckClickType(FrameAction Action, uint32_t PreviousFrame, const std::string& ClickPack, float Fps)
 	{
 		float CurrentTime = (Action.Frame - PreviousFrame) / Fps;
 
@@ -19,10 +19,10 @@ namespace ABot
 		return ClickType::NormalClick;
 	}
 
-	std::string CreateClickType(const std::string& ClickPack, FrameAction Action, float Fps)
+	std::string CreateClickType(FrameAction Action, const std::string& ClickPack, float Fps)
 	{
 		static uint32_t PreviousFrame = 0;
-		const ClickType CurrentClickType = CheckClickType(ClickPack, Action, PreviousFrame, Fps);
+		ClickType CurrentClickType = CheckClickType(Action, PreviousFrame, ClickPack, Fps);
 		
 		if (!Action.IsHolding)
 			PreviousFrame = Action.Frame;

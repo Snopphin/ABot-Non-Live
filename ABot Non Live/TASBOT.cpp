@@ -2,7 +2,7 @@
 
 TASBOT::TASBOT(std::ifstream& Macro)
 {
-	this->Parse(Macro);
+	Parse(Macro);
 }
 
 void TASBOT::Parse(std::ifstream& Macro)

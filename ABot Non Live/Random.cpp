@@ -3,21 +3,19 @@
 
 namespace Random
 {
+	fast_io::ibuf_white_hole_engine s_RandomEngine;
+
 	int IntRandom(int Begin, int End)
 	{
-		std::random_device RandomDevice;
-		std::mt19937 RandomEngine(RandomDevice());
 		std::uniform_int_distribution UniformDistribution(Begin, End);
 
-		return UniformDistribution(RandomEngine);
+		return UniformDistribution(s_RandomEngine);
 	}
-
+	
 	float FloatRandom(float Begin, float End)
 	{
-		std::random_device RandomDevice;
-		std::mt19937 RandomEngine(RandomDevice());
 		std::uniform_real_distribution UniformDistribution(Begin, End);
 
-		return UniformDistribution(RandomEngine);
+		return UniformDistribution(s_RandomEngine);
 	}
 }
