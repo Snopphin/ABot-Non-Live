@@ -1,24 +1,17 @@
 #pragma once
-#include <fstream>
-#include "fast_vector.h"
-#include "WavHeader.h"
+#include "WaveForm.h"
 
-class AudioEngine //Currently only supports 16bit pcm 44100 sample rate wav files
+class AudioEngine
 {
-	typedef char* Binary;
 public:
-	void Overlay(std::string_view AudioFile, float Time = 0, float Volume = 0);
+	void Overlay(std::string_view Input, float Time = 0);
 	void CreateSilence(float Time);
 	void Export(std::string_view Output);
 private:
-	void Parse(std::string_view AudioFile);
-	void NormalizeVolume(float AdjustVolume);
-
-	float GetNormalizedVolume();
-
 	size_t ToSamples(float Time);
 private:
-	WavHeader m_LastWavHeader;
 	fast_vector<int16_t> m_TotalSamples;
 	fast_vector<int16_t> m_AudioSamples;
+	
+	WavHeader m_WavHeader;
 };

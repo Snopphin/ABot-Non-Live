@@ -2,17 +2,17 @@
 
 struct WavHeader
 {
-    char riffId[4];
-    uint32_t bitDepth;
-    char waveId[4];
-    char formatChunkId[4];
-    uint32_t formatChunkSize;
-    uint16_t compressionCode;
-    uint16_t numberOfChannels;
-    uint32_t sampleRate;
-    uint32_t bitRate;
-    uint16_t blockAlign;
-    uint16_t bitsPerSample;
-    char dataChunkId[4];
-    uint32_t LenghtInBytes;
+    char RiffId[4];
+    uint32_t HeaderChunkSize;
+    char WaveId[4];
+    char FormatChunkId[4];
+    uint32_t FormatChunkSize;
+    uint16_t CompressionCode;
+    uint16_t NumberOfChannels;
+    uint32_t SampleRate;
+    uint32_t BitRate;
+    uint16_t BlockAlign;
+    uint16_t BitDepth;
+    char DataChunkId[4];
+    uint32_t Time;
 };
