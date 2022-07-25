@@ -2,7 +2,7 @@
 
 GuiLayer::GuiLayer()
 {
-    m_Window.Create("ABot 1.6", 1280, 720);
+    m_Window.Create("ABot 2.0", 1280, 720);
 	glfwSwapInterval(true); 
 
     IMGUI_CHECKVERSION();
@@ -66,36 +66,50 @@ void GuiLayer::RenderFrame()
 
 void GuiLayer::RenderImGui()
 {
-    static std::string s_ReplayPath;
-    static std::string s_ClickPath;
+    static bool s_SoftClick;
+    static bool s_HardClick;
+
+    static char* s_ReplayPath = nullptr;
+    static char* s_ClickPath = nullptr;
 
     ImGui::Begin("ABot");
     {
         ImGui::PushFont(m_ImGuiFont);
 
-        ImGui::InputText("Replay Path", &s_ReplayPath);
-        ImGui::InputText("Click Pack Path", &s_ClickPath);
+        if (ImGui::Button("Open Click Pack"))
+        {
+            NFD_PickFolder(&s_ClickPath, nullptr);
+        }
+
+        if (ImGui::Button("Open Replay"))
+        {
+            nfdfilteritem_t Replays[] = { { "Replays", "json,rbot" } };
+            NFD_OpenDialog(&s_ReplayPath, Replays, 1, nullptr);
+        }
+
+        ImGui::Checkbox("SoftClick", &s_SoftClick);
+        ImGui::Checkbox("HardClick", &s_HardClick);
 
         if (ImGui::Button("Render"))
         {
-            if (s_ReplayPath.ends_with(".json"))
+            const std::string StrReplayPath = s_ReplayPath;
+            
+            if (StrReplayPath.ends_with(".json"))
             {
                 std::ifstream Macro(s_ReplayPath);
 
                 const TASBOT Replay(Macro);
 
-                AudioRender RenderLoop;
-                RenderLoop.Process(Replay.Actions, Replay.Fps, s_ClickPath);
+                AudioRender RenderLoop = { Replay.Actions, Replay.Fps, s_ClickPath, s_SoftClick, s_HardClick};
             }
 
-            if (s_ReplayPath.ends_with(".rbot"))
+            if (StrReplayPath.ends_with(".rbot"))
             {
                 std::ifstream Macro(s_ReplayPath, std::ios::binary);
 
                 const RBot Replay(Macro);
 
-                AudioRender RenderLoop;
-                RenderLoop.Process(Replay.Actions, Replay.Fps, s_ClickPath);
+                AudioRender RenderLoop = { Replay.Actions, Replay.Fps, s_ClickPath, s_SoftClick, s_HardClick };
             }
         }
 

@@ -2,16 +2,16 @@
 
 namespace ABot
 {
-	ClickType CheckClickType(FrameAction Action, uint32_t PreviousFrame, const std::string& ClickPack, float Fps)
+	ClickType CheckClickType(FrameAction Action, uint32_t PreviousFrame, const std::string& ClickPack, float Fps, bool SoftClick, bool HardClick)
 	{
 		float CurrentTime = (Action.Frame - PreviousFrame) / Fps;
 
-		if (CurrentTime < 0.13f && std::filesystem::exists(ClickPack + "/SoftClicks/"))
+		if (CurrentTime < 0.1f && SoftClick)
 		{
 			return ClickType::SoftClick;
 		}
 
-		if (CurrentTime < 0.24f && std::filesystem::exists(ClickPack + "/HardClicks/"))
+		if (CurrentTime < 2.0f && HardClick)
 		{
 			return ClickType::HardClick;
 		}
@@ -19,10 +19,10 @@ namespace ABot
 		return ClickType::NormalClick;
 	}
 
-	std::string CreateClickType(FrameAction Action, const std::string& ClickPack, float Fps)
+	std::string CreateClickType(FrameAction Action, const std::string& ClickPack, float Fps, bool SoftClick, bool HardClick)
 	{
 		static uint32_t PreviousFrame = 0;
-		ClickType CurrentClickType = CheckClickType(Action, PreviousFrame, ClickPack, Fps);
+		ClickType CurrentClickType = CheckClickType(Action, PreviousFrame, ClickPack, Fps, SoftClick, HardClick);
 		
 		if (!Action.IsHolding)
 			PreviousFrame = Action.Frame;

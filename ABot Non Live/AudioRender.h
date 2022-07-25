@@ -3,9 +3,9 @@
 class AudioRender
 {
 public:
-	void Process(const fast_vector<FrameAction>& Actions, float Fps, std::string Clickpack);
+	AudioRender(const fast_vector<FrameAction>& Actions, float Fps, std::string Clickpack, bool SoftClick, bool HardClick);
 private:
-	void OnAction(FrameAction Action, const std::string& ClickPack, float Fps);
+	void OnAction(FrameAction Action, const std::string& ClickPack, float Fps, bool SoftClick, bool HardClick);
 private:
 	AudioEngine m_Output;
 };

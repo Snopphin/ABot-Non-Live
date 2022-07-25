@@ -46,12 +46,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(SolutionDir)ImGui\Lib\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)ImGui\Lib\imgui-docking;$(SolutionDir)ImGui\Lib\imgui-docking\backends;$(SolutionDir)ImGui\Lib\GLFW;$(SolutionDir)ImGui\Lib\imgui-docking\misc\cpp;$(SolutionDir)AudioEngine;$(SolutionDir)rapidjson\include\rapidjson;$(SolutionDir)fast_io\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ImGui\Lib\imgui-docking;$(SolutionDir)ImGui\Lib\imgui-docking\backends;$(SolutionDir)ImGui\Lib\GLFW;$(SolutionDir)ImGui\Lib\imgui-docking\misc\cpp;$(SolutionDir)AudioEngine;$(SolutionDir)rapidjson\include\rapidjson;$(SolutionDir)fast_io\include;$(SolutionDir)nativefiledialog-extended\src\include;$(SolutionDir)libsndfile\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <LibraryPath>$(SolutionDir)ImGui\Lib\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)ImGui\Lib\imgui-docking;$(SolutionDir)ImGui\Lib\imgui-docking\backends;$(SolutionDir)ImGui\Lib\GLFW;$(SolutionDir)ImGui\Lib\imgui-docking\misc\cpp;$(SolutionDir)AudioEngine;$(SolutionDir)rapidjson\include\rapidjson;$(SolutionDir)fast_io\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ImGui\Lib\imgui-docking;$(SolutionDir)ImGui\Lib\imgui-docking\backends;$(SolutionDir)ImGui\Lib\GLFW;$(SolutionDir)ImGui\Lib\imgui-docking\misc\cpp;$(SolutionDir)AudioEngine;$(SolutionDir)rapidjson\include\rapidjson;$(SolutionDir)fast_io\include;$(SolutionDir)nativefiledialog-extended\src\include;$(SolutionDir)libsndfile\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -69,6 +69,8 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -93,6 +95,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -116,6 +120,9 @@
     </ProjectReference>
     <ProjectReference Include="..\ImGui\ImGui.vcxproj">
       <Project>{d7431b5c-a4d7-42ee-b089-0c4c320f6d98}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\nativefiledialog-extended\src\nfd.vcxproj">
+      <Project>{ff95e2c3-d348-3f34-8c44-ef1d9faab98e}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
