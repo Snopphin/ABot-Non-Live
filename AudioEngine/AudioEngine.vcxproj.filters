@@ -4,36 +4,15 @@
     <Filter Include="AudioEngine">
       <UniqueIdentifier>{fdaf2b0d-2e26-43b9-87e8-b0902b27eabe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AudioEngine\WaveForm">
-      <UniqueIdentifier>{4e6d53a8-b3cb-4c29-bd0b-458905004229}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="AudioEngine\Effects">
-      <UniqueIdentifier>{380ba7f3-09bc-45dc-96f1-5cf2b824e7bc}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioEngine.cpp">
       <Filter>AudioEngine</Filter>
     </ClCompile>
-    <ClCompile Include="WaveForm.cpp">
-      <Filter>AudioEngine\WaveForm</Filter>
-    </ClCompile>
-    <ClCompile Include="Effects.cpp">
-      <Filter>AudioEngine\Effects</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioEngine.h">
       <Filter>AudioEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="WaveForm.h">
-      <Filter>AudioEngine\WaveForm</Filter>
-    </ClInclude>
-    <ClInclude Include="WavHeader.h">
-      <Filter>AudioEngine\WaveForm</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects.h">
-      <Filter>AudioEngine\Effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

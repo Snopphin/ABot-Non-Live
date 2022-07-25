@@ -1,27 +1,31 @@
 #include "AudioEngine.h"
-#include "Effects.h"
 
 void AudioEngine::Overlay(std::string_view Input, float Time)
 {
-	WaveForm::Parse(Input, m_AudioSamples, m_WavHeader);
-	m_TotalSamples.add(ToSamples(Time), m_AudioSamples);
-}
+	SNDFILE* InputFile = sf_open(Input.data(), SFM_READ, &m_AudioInfo);
 
-void AudioEngine::CreateSilence(float Time)
-{
-	m_TotalSamples.resize(ToSamples(Time));
+	if (InputFile == nullptr)
+		return;
+
+	m_AudioSamples.resize(m_AudioInfo.frames * m_AudioInfo.channels);
+
+	sf_read_float(InputFile, m_AudioSamples.data(), m_AudioSamples.lenght());
+	sf_close(InputFile);
+
+	m_TotalSamples.add(ToSamples(Time), m_AudioSamples);
 }
 
 void AudioEngine::Export(std::string_view Output)
 {
-	m_WavHeader.Time = m_TotalSamples.lenght() * sizeof(int16_t);
-	m_WavHeader.SampleRate = 44100;
+	SNDFILE* OutputFile = sf_open(Output.data(), SFM_WRITE, &m_AudioInfo);
 
-	Effects::NormalizeVolume(m_TotalSamples);
-	WaveForm::Save(Output, m_TotalSamples, m_WavHeader);
+	sf_write_float(OutputFile, m_TotalSamples.data(), m_TotalSamples.lenght());
+	sf_write_sync(OutputFile);
+	
+	sf_close(OutputFile);
 }
 
 size_t AudioEngine::ToSamples(float Time)
 {
-	return 44100 * Time * sizeof(int16_t);
+	return m_AudioInfo.samplerate * Time * m_AudioInfo.channels;
 }
